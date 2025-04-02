@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KYC Form Generator - Colour Academy</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .form-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 3px;
+            font-weight: bold;
+        }
+        input[type="file"] {
+            margin-bottom: 15px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 8px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .output {
+            margin-top: 15px;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .kyc-form {
+            margin: 0 auto;
+        }
+        .kyc-form-page {
+            background: #fff;
+            padding: 15px;
+            border: 1px solid #000;
+            width: 210mm;
+            min-height: 297mm;
+            box-sizing: border-box;
+            page-break-after: always;
+            margin-bottom: 15px;
+        }
+        .company-logo {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .company-logo img {
+            max-height: 80px;
+            width: auto;
+        }
+        .kyc-form-page h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        .kyc-form-page .section {
+            margin-bottom: 12px;
+        }
+        .kyc-form-page .section h2 {
+            font-size: 16px;
+            border-bottom: 1px solid #000;
+            padding-bottom: 3px;
+            margin-bottom: 8px;
+        }
+        .kyc-form-page input[type="text"],
+        .kyc-form-page textarea {
+            padding: 4px;
+            margin-bottom: 8px;
+            border: 1px solid #000;
+            box-sizing: border-box;
+            width: 100%;
+            font-size: 14px;
+        }
+        .kyc-form-page table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        .kyc-form-page th, .kyc-form-page td {
+            border: 1px solid #000;
+            padding: 6px;
+            text-align: left;
+        }
+        .compact-info {
+            margin-bottom: 12px;
+        }
+        .compact-info div {
+            margin-bottom: 3px;
+            font-size: 14px;
+        }
+        .form-header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .form-header h1 {
+            margin-top: 0;
+        }
+        .digit-boxes {
+            display: flex;
+            gap: 2px;
+        }
+        .digit-box {
+            width: 18px;
+            height: 22px;
+            border: 1px solid #000;
+            text-align: center;
+            line-height: 22px;
+            font-size: 14px;
+        }
+        .personal-details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .personal-detail-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .name-line {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 8px;
+            align-items: flex-end;
+        }
+        .surname-box {
+            flex: 2;
+        }
+        .gender-age-group {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+        .gender-box, .age-box {
+            width: 50px;
+            font-size: 14px;
+        }
+        .gender-age-label {
+            margin-right: 5px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .address-box {
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 14px;
+            min-height: 60px;
+        }
+        .mobile-dob-line {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        .mobile-box, .dob-box {
+            flex: 1;
+        }
+        .contractor-line {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        .contractor-box, .training-box {
+            flex: 1;
+        }
+        .dealer-box {
+            margin-bottom: 8px;
+        }
+        .contractor-no-line {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        .contractor-no-box {
+            flex: 1;
+        }
+        .training-duration-header {
+            text-align: right;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 5px;
+            margin-top: 15px;
+        }
+        .date-range-container {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 5px;
+        }
+        .from-date-box, .to-date-box {
+            width: 100px;
+        }
+        .date-label {
+            display: block;
+            margin-bottom: 3px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .declaration-section {
+            margin-top: 20px;
+        }
+        .declaration-section p {
+            font-size: 14px;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+        .signature-line {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .signature-box {
+            width: 45%;
+            font-size: 14px;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        .download-btn {
+            background-color: #2196F3;
+            font-size: 14px;
+        }
+        .download-btn:hover {
+            background-color: #0b7dda;
+        }
+        .proof-section {
+            margin-bottom: 15px;
+        }
+        .proof-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 5px;
+        }
+        .proof-option {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+        .proof-option input[type="checkbox"] {
+            margin-right: 6px;
+            transform: scale(1.1);
+        }
+        .other-proof {
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+        .other-proof input[type="text"] {
+            flex: 1;
+            margin-left: 6px;
+            font-size: 14px;
+        }
+        .tick-mark {
+            color: green;
+            font-weight: bold;
+            margin-left: 3px;
+        }
+        .proof-number {
+            margin-top: 5px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .dob-text {
+            padding: 4px;
+            margin-bottom: 8px;
+            border: none;
+            box-sizing: border-box;
+            width: 100%;
+            font-size: 14px;
+        }
+        @media print {
+            .kyc-form-page {
+                margin: 0;
+                padding: 10mm;
+                page-break-after: always;
+            }
+            .form-container, .action-buttons {
+                display: none;
+            }
+            body {
+                background-color: white;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="logo">
+            <h1>KYC Form Generator - Colour Academy</h1>
+        </div>
+        
+        <form id="uploadForm">
+            <label for="excelFile">Upload Excel File:</label>
+            <input type="file" id="excelFile" name="excelFile" accept=".xlsx, .xls" required>
+            <button type="submit">Generate KYC Forms</button>
+        </form>
+
+        <div class="output" id="output"></div>
+        <div class="action-buttons" id="actionButtons" style="display: none;">
+            <button class="download-btn" id="downloadBtn">Download All KYC Forms</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        const { jsPDF } = window.jspdf;
+        
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const fileInput = document.getElementById('excelFile');
+            const outputDiv = document.getElementById('output');
+            const actionButtons = document.getElementById('actionButtons');
+            
+            if (!fileInput.files || fileInput.files.length === 0) {
+                alert('Please select an Excel file first.');
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                try {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, { type: 'array' });
+                    
+                    if (workbook.SheetNames.length === 0) {
+                        alert('Excel file has no sheets.');
+                        return;
+                    }
+                    
+                    const sheetName = workbook.SheetNames[0];
+                    const sheet = workbook.Sheets[sheetName];
+                    const jsonData = XLSX.utils.sheet_to_json(sheet);
+
+                    if (jsonData.length === 0) {
+                        alert('No data found in the sheet.');
+                        return;
+                    }
+
+                    outputDiv.innerHTML = '';
+                    jsonData.forEach((row, index) => {
+                        const formHTML = generateKYCForm(row);
+                        outputDiv.innerHTML += formHTML;
+                    });
+                    
+                    actionButtons.style.display = 'flex';
+                    
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Error processing file. Check console for details.');
+                }
+            };
+
+            reader.onerror = function(error) {
+                console.error('FileReader error:', error);
+                alert('Error reading file. Please try again.');
+            };
+
+            reader.readAsArrayBuffer(file);
+        });
+
+        document.getElementById('downloadBtn').addEventListener('click', async function() {
+            const forms = document.querySelectorAll('.kyc-form-page');
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const totalForms = forms.length;
+            let processedForms = 0;
+            
+            const downloadBtn = document.getElementById('downloadBtn');
+            const originalText = downloadBtn.textContent;
+            downloadBtn.textContent = 'Generating PDF...';
+            downloadBtn.disabled = true;
+            
+            // Optimized settings for better fitting
+            const options = {
+                scale: 1.8,
+                quality: 0.9,
+                dpi: 192,
+                letterRendering: true,
+                backgroundColor: '#FFFFFF',
+                logging: false,
+                useCORS: true,
+                scrollX: 0,
+                scrollY: 0
+            };
+            
+            for (let i = 0; i < forms.length; i++) {
+                const form = forms[i];
+                try {
+                    const canvas = await html2canvas(form, options);
+                    
+                    const imgData = canvas.toDataURL('image/jpeg', 0.9);
+                    const imgWidth = 190; // Slightly reduced to account for margins
+                    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                    
+                    // Center the content on the page
+                    const xPos = (210 - imgWidth) / 2;
+                    const yPos = 10;
+                    
+                    pdf.addImage(imgData, 'JPEG', xPos, yPos, imgWidth, imgHeight);
+                    
+                    if (i < forms.length - 1) {
+                        pdf.addPage();
+                    }
+                    
+                    processedForms++;
+                    downloadBtn.textContent = `Processed ${processedForms}/${totalForms} forms`;
+                    
+                } catch (error) {
+                    console.error('Error generating form:', error);
+                }
+            }
+            
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+            pdf.save(`KYC_Forms_${timestamp}.pdf`);
+            
+            downloadBtn.textContent = originalText;
+            downloadBtn.disabled = false;
+        });
+
+        function createDigitBoxes(number, length) {
+            const numStr = number ? number.toString() : '';
+            let boxes = '<div class="digit-boxes">';
+            for (let i = 0; i < length; i++) {
+                const digit = i < numStr.length ? numStr[i] : '';
+                boxes += `<div class="digit-box">${digit}</div>`;
+            }
+            boxes += '</div>';
+            return boxes;
+        }
+
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            
+            let date;
+            
+            if (!isNaN(dateString)) {
+                const excelEpoch = new Date(1899, 11, 30);
+                date = new Date(excelEpoch.getTime() + dateString * 24 * 60 * 60 * 1000);
+            } else {
+                date = new Date(dateString);
+            }
+            
+            if (!isNaN(date.getTime())) {
+                const day = String(date.getDate()).padStart(2, '0');
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const year = date.getFullYear();
+                return `${day}/${month}/${year}`;
+            }
+            
+            return dateString;
+        }
+
+        function generateKYCForm(data) {
+            const createProofSection = (proofType, proofNumber, label) => {
+                const isAadhar = proofType && proofType.toLowerCase().includes('aadhar');
+                const isVoter = proofType && proofType.toLowerCase().includes('voter');
+                const isDriving = proofType && proofType.toLowerCase().includes('driving');
+                const isOther = proofType && !isAadhar && !isVoter && !isDriving;
+                
+                return `
+                    <div class="proof-section">
+                        <label>${label}:</label>
+                        <div class="proof-options">
+                            <div class="proof-option">
+                                <input type="checkbox" ${isAadhar ? 'checked' : ''} disabled>
+                                <span>Aadhar Card ${isAadhar ? '<span class="tick-mark">✓</span>' : ''}</span>
+                            </div>
+                            <div class="proof-option">
+                                <input type="checkbox" ${isVoter ? 'checked' : ''} disabled>
+                                <span>Voter ID ${isVoter ? '<span class="tick-mark">✓</span>' : ''}</span>
+                            </div>
+                            <div class="proof-option">
+                                <input type="checkbox" ${isDriving ? 'checked' : ''} disabled>
+                                <span>Driving License ${isDriving ? '<span class="tick-mark">✓</span>' : ''}</span>
+                            </div>
+                            <div class="proof-option">
+                                <input type="checkbox" ${isOther ? 'checked' : ''} disabled>
+                                <span>Other Govt ID ${isOther ? '<span class="tick-mark">✓</span>' : ''}</span>
+                            </div>
+                        </div>
+                        ${isOther ? `
+                        <div class="other-proof">
+                            <span>Specify:</span>
+                            <input type="text" value="${proofType}" readonly>
+                        </div>
+                        ` : ''}
+                        <div class="proof-number">
+                            ID Number: ${proofNumber || 'Not provided'}
+                        </div>
+                    </div>
+                `;
+            };
+
+            return `
+                <div class="kyc-form">
+                    <div class="kyc-form-page">
+                        <div class="company-logo">
+                            <img src="bha.jpg" alt="BHA Logo">
+                        </div>
+                        <div class="form-header">
+                            <h1>COLOUR ACADEMY KYC FORM</h1>
+                        </div>
+                        
+                        <div class="compact-info">
+                            <div><label>Division:</label> ${data.Division || ''}</div>
+                            <div><label>Region:</label> ${data.Region || ''}</div>
+                            <div><label>Area:</label> ${data.Area || ''}</div>
+                            <div><label>Territory:</label> ${data.Territory || ''}</div>
+                            <div><label>Venue:</label> ${data.Venue || ''}</div>
+                        </div>
+                        
+                        <div class="section">
+                            <h2>Personal Details</h2>
+                            <div class="personal-details-grid">
+                                <div class="personal-detail-item">
+                                    <label>First Name:</label>
+                                    <input type="text" value="${data.firstName || ''}" readonly>
+                                </div>
+                                <div class="personal-detail-item">
+                                    <label>Middle Name:</label>
+                                    <input type="text" value="${data.middleName || ''}" readonly>
+                                </div>
+                            </div>
+                            
+                            <div class="name-line">
+                                <div class="surname-box">
+                                    <label>Surname:</label>
+                                    <input type="text" value="${data.surname || ''}" readonly>
+                                </div>
+                                <div class="gender-age-group">
+                                    <span class="gender-age-label">Gender:</span>
+                                    <input type="text" class="gender-box" value="${data.gender || ''}" readonly>
+                                    <span class="gender-age-label">Age:</span>
+                                    <input type="text" class="age-box" value="${data.age || ''}" readonly>
+                                </div>
+                            </div>
+                            
+                            <label>Address:</label>
+                            <textarea class="address-box" readonly>${data.address || ''}</textarea>
+                            
+                            <div class="mobile-dob-line">
+                                <div class="mobile-box">
+                                    <label>Mobile No:</label>
+                                    ${createDigitBoxes(data.mobileNo, 10)}
+                                </div>
+                                <div class="dob-box">
+                                    <label>Date of Birth:</label>
+                                    <div class="dob-text">${formatDate(data.dob) || ''}</div>
+                                </div>
+                            </div>
+                            
+                            <div class="contractor-line">
+                                <div class="contractor-box">
+                                    <label>Contractor BP No:</label>
+                                    ${createDigitBoxes(data.contractorBPNo, 10)}
+                                </div>
+                                <div class="training-box">
+                                    <label>Training Program Name:</label>
+                                    <input type="text" value="${data.trainingProgram || ''}" readonly>
+                                </div>
+                            </div>
+                            
+                            <div class="dealer-box">
+                                <label>Dealer Name:</label>
+                                <input type="text" value="${data.dealerName || ''}" readonly>
+                            </div>
+                            
+                            <div class="contractor-no-line">
+                                <div class="contractor-no-box">
+                                    <label>Contractor No:</label>
+                                    <input type="text" value="${data.contractorNo || ''}" readonly>
+                                </div>
+                            </div>
+                            
+                            <div class="training-duration-header">
+                                Plumbing Training Duration:
+                            </div>
+                            
+                            <div class="date-range-container">
+                                <div class="from-date-box">
+                                    <span class="date-label">From Date:</span>
+                                    <input type="text" value="${formatDate(data.fromDate) || ''}" readonly>
+                                </div>
+                                <div class="to-date-box">
+                                    <span class="date-label">To Date:</span>
+                                    <input type="text" value="${formatDate(data.toDate) || ''}" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="section">
+                            <h2>ID and Address Proof</h2>
+                            ${createProofSection(data['ID Name'], data['ID no'], "ID Proof")}
+                            ${createProofSection(data['Address Proof Name'], data['Address Proof No'], "Address Proof")}
+                        </div>
+                        
+                        <div class="section declaration-section">
+                            <h2>Declaration</h2>
+                            <p>I hereby declare that the information declared in this form is true and correct and that I am a resident Indian. I have attended the training mentioned in this form.</p>
+                            
+                            <div class="signature-line">
+                                <div class="signature-box">
+                                    <label>Signature of the Participant: ________________</label>
+                                </div>
+                                <div class="signature-box" style="text-align: right;">
+                                    <label>Name of the Trainer: ${data.trainerName || ''}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="kyc-form-page">
+                        <div class="company-logo">
+                            <img src="bha.jpg" alt="BHA Logo">
+                        </div>
+                        <div class="form-header">
+                            <h1>COLOUR ACADEMY KYC FORM (CONTINUED)</h1>
+                        </div>
+                        
+                        <div class="section">
+                            <h2>Post Training Feedback</h2>
+                            <table>
+                                <tr>
+                                    <th>Questions</th>
+                                    <th>Options</th>
+                                    <th>Response</th>
+                                </tr>
+                                <tr>
+                                    <td>Type of Participant</td>
+                                    <td>Helper / Plumber / Contractor / Others</td>
+                                    <td><input type="text" value="${data.typeOfParticipant || ''}" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td>Course Fees Paid Through</td>
+                                    <td>Cash / Free Coupon / Discount</td>
+                                    <td><input type="text" value="${data.courseFeesPaid || ''}" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td>Anyone Sponsoring for the Course Fees</td>
+                                    <td>Self / Contractor / Colour Academy / Others</td>
+                                    <td><input type="text" value="${data.sponsor || ''}" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td>How did you come to know about the CA?</td>
+                                    <td>Internet / Contractor / Dealer / Plumber / NGO / Others</td>
+                                    <td><input type="text" value="${data.sourceOfInfo || ''}" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td>Nominated By</td>
+                                    <td>Self / Contractor / Dealer / Others</td>
+                                    <td><input type="text" value="${data.nominatedBy || ''}" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td>Prior Experience</td>
+                                    <td>Nil / 1-2 years / 2 or more years</td>
+                                    <td><input type="text" value="${data.priorExperience || ''}" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td>During the Training days, any loss in income/salary</td>
+                                    <td>Yes / No</td>
+                                    <td><input type="text" value="${data.lossInIncome || ''}" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td>Loss of Salary during Training Compensated by?</td>
+                                    <td>By AP / Contractor / Not Compensated</td>
+                                    <td><input type="text" value="${data.compensation || ''}" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td>Current in-hand Income / Month</td>
+                                    <td></td>
+                                    <td><input type="text" value="${data.currentIncome || ''}" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td>In-hand income/month after 3 months of Training Attended</td>
+                                    <td></td>
+                                    <td><input type="text" value="${data.incomeAfterTraining || ''}" readonly></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
