@@ -133,6 +133,26 @@
             line-height: 22px;
             font-size: 14px;
         }
+        .dot-container {
+            position: relative;
+            margin-bottom: 8px;
+        }
+        .dot-output {
+            font-size: 14px;
+            letter-spacing: 0px; /* ডটের মধ্যে দূরত্ব কমানো হয়েছে */
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: transparent;
+            z-index: 1;
+        }
+        .dot-background {
+            font-size: 14px;
+            letter-spacing: 0px; /* ডটের মধ্যে দূরত্ব কমানো হয়েছে */
+            color: #000;
+            position: relative;
+            z-index: 0;
+        }
         .personal-details-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -163,13 +183,8 @@
             gap: 5px;
             align-items: center;
         }
-        .gender-box, .age-box {
+        .gender-box {
             width: 50px;
-            font-size: 14px;
-        }
-        .gender-age-label {
-            margin-right: 5px;
-            font-weight: bold;
             font-size: 14px;
         }
         .address-box {
@@ -201,14 +216,6 @@
         }
         .dealer-box {
             margin-bottom: 8px;
-        }
-        .contractor-no-line {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 8px;
-        }
-        .contractor-no-box {
-            flex: 1;
         }
         .training-duration-header {
             text-align: right;
@@ -298,18 +305,6 @@
         .proof-number {
             margin-top: 5px;
             font-weight: bold;
-            font-size: 14px;
-        }
-        .dob-boxes {
-            display: flex;
-            gap: 2px;
-        }
-        .dob-digit-box {
-            width: 18px;
-            height: 22px;
-            border: 1px solid #000;
-            text-align: center;
-            line-height: 22px;
             font-size: 14px;
         }
         .name-container {
@@ -426,7 +421,6 @@
             downloadBtn.textContent = 'Generating PDF...';
             downloadBtn.disabled = true;
             
-            // Optimized settings for better fitting
             const options = {
                 scale: 1.8,
                 quality: 0.9,
@@ -445,10 +439,9 @@
                     const canvas = await html2canvas(form, options);
                     
                     const imgData = canvas.toDataURL('image/jpeg', 0.9);
-                    const imgWidth = 190; // Slightly reduced to account for margins
+                    const imgWidth = 190;
                     const imgHeight = (canvas.height * imgWidth) / canvas.width;
                     
-                    // Center the content on the page
                     const xPos = (210 - imgWidth) / 2;
                     const yPos = 10;
                     
@@ -488,7 +481,6 @@
             const formattedDate = formatDate(dateString);
             if (!formattedDate) return createDigitBoxes('', 8);
             
-            // Remove slashes from the date (DD/MM/YYYY)
             const dateDigits = formattedDate.replace(/\//g, '');
             return createDigitBoxes(dateDigits, 8);
         }
@@ -513,6 +505,16 @@
             }
             
             return dateString;
+        }
+
+        function createDotOutput(value, dotCount) {
+            const dots = '.'.repeat(dotCount);
+            return `
+                <div class="dot-container">
+                    <span class="dot-output">${value || ''}</span>
+                    <span class="dot-background">${dots}</span>
+                </div>
+            `;
         }
 
         function generateKYCForm(data) {
@@ -579,29 +581,32 @@
                             <div class="name-container">
                                 <div class="name-box">
                                     <label>First Name:</label>
-                                    <input type="text" value="${data.firstName || ''}" readonly>
+                                    ${createDotOutput(data.firstName, 60)}
                                 </div>
                                 <div class="name-box">
                                     <label>Middle Name:</label>
-                                    <input type="text" value="${data.middleName || ''}" readonly>
+                                    ${createDotOutput(data.middleName, 60)}
                                 </div>
                             </div>
                             
                             <div class="surname-gender-age-line">
                                 <div class="surname-box">
                                     <label>Surname:</label>
-                                    <input type="text" value="${data.surname || ''}" readonly>
+                                    ${createDotOutput(data.surname, 60)}
                                 </div>
                                 <div class="gender-age-group">
                                     <span class="gender-age-label">Gender:</span>
                                     <input type="text" class="gender-box" value="${data.gender || ''}" readonly>
                                     <span class="gender-age-label">Age:</span>
-                                    <input type="text" class="age-box" value="${data.age || ''}" readonly>
+                                    ${createDotOutput(data.age, 15)}
                                 </div>
                             </div>
                             
                             <label>Address:</label>
-                            <textarea class="address-box" readonly>${data.address || ''}</textarea>
+                            <div class="dot-container" style="min-height: 60px;">
+                                <span class="dot-output">${data.address || ''}</span>
+                                <span class="dot-background">${'.'.repeat(240)}</span>
+                            </div>
                             
                             <div class="mobile-dob-container">
                                 <div class="mobile-dob-item">
@@ -623,24 +628,17 @@
                             <div class="contractor-line">
                                 <div class="contractor-box">
                                     <label>Contractor BP No:</label>
-                                    ${createDigitBoxes(data.contractorBPNo, 10)}
+                                    ${createDotOutput(data.contractorBPNo, 48)}
                                 </div>
                                 <div class="training-box">
-                                    <label>Training Program Name:</label>
-                                    <input type="text" value="${data.trainingProgram || ''}" readonly>
+                                    <label>Module Name:</label>
+                                    ${createDotOutput(data.trainingProgram, 24)}
                                 </div>
                             </div>
                             
                             <div class="dealer-box">
                                 <label>Dealer Name:</label>
-                                <input type="text" value="${data.dealerName || ''}" readonly>
-                            </div>
-                            
-                            <div class="contractor-no-line">
-                                <div class="contractor-no-box">
-                                    <label>Contractor No:</label>
-                                    <input type="text" value="${data.contractorNo || ''}" readonly>
-                                </div>
+                                ${createDotOutput(data.dealerName, 60)}
                             </div>
                             
                             <div class="training-duration-header">
