@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KYC Form Generator - Colour Academy</title>
+    <title>KYC Form Generator - Beautiful Homes Academy</title>
     <style>
         body {
             font-family: 'Times New Roman', Times, serif;
@@ -65,17 +65,21 @@
             page-break-after: always;
             margin-bottom: 15px;
         }
-        .company-logo {
+        .company-header {
             text-align: center;
             margin-bottom: 15px;
         }
+        .company-logo {
+            margin-bottom: 5px;
+        }
         .company-logo img {
-            max-height: 80px;
+            max-height: 100px;
             width: auto;
         }
-        .kyc-form-page h1 {
+        .company-title {
             font-size: 20px;
-            margin-bottom: 15px;
+            font-weight: bold;
+            margin-top: 5px;
         }
         .kyc-form-page .section {
             margin-bottom: 12px;
@@ -117,9 +121,6 @@
             text-align: center;
             margin-bottom: 15px;
         }
-        .form-header h1 {
-            margin-top: 0;
-        }
         .digit-boxes {
             display: flex;
             gap: 2px;
@@ -148,6 +149,12 @@
             margin-bottom: 8px;
             align-items: flex-end;
         }
+        .surname-gender-age-line {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 8px;
+            align-items: flex-end;
+        }
         .surname-box {
             flex: 2;
         }
@@ -171,13 +178,18 @@
             font-size: 14px;
             min-height: 60px;
         }
-        .mobile-dob-line {
+        .mobile-dob-container {
             display: flex;
             gap: 10px;
             margin-bottom: 8px;
         }
-        .mobile-box, .dob-box {
+        .mobile-dob-item {
             flex: 1;
+        }
+        .mobile-dob-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 3px;
         }
         .contractor-line {
             display: flex;
@@ -288,13 +300,25 @@
             font-weight: bold;
             font-size: 14px;
         }
-        .dob-text {
-            padding: 4px;
-            margin-bottom: 8px;
-            border: none;
-            box-sizing: border-box;
-            width: 100%;
+        .dob-boxes {
+            display: flex;
+            gap: 2px;
+        }
+        .dob-digit-box {
+            width: 18px;
+            height: 22px;
+            border: 1px solid #000;
+            text-align: center;
+            line-height: 22px;
             font-size: 14px;
+        }
+        .name-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        .name-box {
+            flex: 1;
         }
         @media print {
             .kyc-form-page {
@@ -314,7 +338,7 @@
 <body>
     <div class="form-container">
         <div class="logo">
-            <h1>KYC Form Generator - Colour Academy</h1>
+            <h1>KYC Form Generator - Beautiful Homes Academy</h1>
         </div>
         
         <form id="uploadForm">
@@ -460,6 +484,15 @@
             return boxes;
         }
 
+        function createDobBoxes(dateString) {
+            const formattedDate = formatDate(dateString);
+            if (!formattedDate) return createDigitBoxes('', 8);
+            
+            // Remove slashes from the date (DD/MM/YYYY)
+            const dateDigits = formattedDate.replace(/\//g, '');
+            return createDigitBoxes(dateDigits, 8);
+        }
+
         function formatDate(dateString) {
             if (!dateString) return '';
             
@@ -526,11 +559,11 @@
             return `
                 <div class="kyc-form">
                     <div class="kyc-form-page">
-                        <div class="company-logo">
-                            <img src="bha.jpg" alt="BHA Logo">
-                        </div>
-                        <div class="form-header">
-                            <h1>COLOUR ACADEMY KYC FORM</h1>
+                        <div class="company-header">
+                            <div class="company-title">BEAUTIFUL HOMES ACADEMY KYC FORM</div>
+                            <div class="company-logo">
+                                <img src="bha.jpg" alt="BHA Logo">
+                            </div>
                         </div>
                         
                         <div class="compact-info">
@@ -543,18 +576,18 @@
                         
                         <div class="section">
                             <h2>Personal Details</h2>
-                            <div class="personal-details-grid">
-                                <div class="personal-detail-item">
+                            <div class="name-container">
+                                <div class="name-box">
                                     <label>First Name:</label>
                                     <input type="text" value="${data.firstName || ''}" readonly>
                                 </div>
-                                <div class="personal-detail-item">
+                                <div class="name-box">
                                     <label>Middle Name:</label>
                                     <input type="text" value="${data.middleName || ''}" readonly>
                                 </div>
                             </div>
                             
-                            <div class="name-line">
+                            <div class="surname-gender-age-line">
                                 <div class="surname-box">
                                     <label>Surname:</label>
                                     <input type="text" value="${data.surname || ''}" readonly>
@@ -570,14 +603,20 @@
                             <label>Address:</label>
                             <textarea class="address-box" readonly>${data.address || ''}</textarea>
                             
-                            <div class="mobile-dob-line">
-                                <div class="mobile-box">
-                                    <label>Mobile No:</label>
-                                    ${createDigitBoxes(data.mobileNo, 10)}
-                                </div>
-                                <div class="dob-box">
-                                    <label>Date of Birth:</label>
-                                    <div class="dob-text">${formatDate(data.dob) || ''}</div>
+                            <div class="mobile-dob-container">
+                                <div class="mobile-dob-item">
+                                    <div class="mobile-dob-label">
+                                        <span>Mobile No:</span>
+                                        <span>Date of Birth:</span>
+                                    </div>
+                                    <div style="display: flex; gap: 10px;">
+                                        <div style="flex: 1;">
+                                            ${createDigitBoxes(data.mobileNo, 10)}
+                                        </div>
+                                        <div style="flex: 1;">
+                                            ${createDobBoxes(data.dob)}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             
@@ -642,11 +681,11 @@
                     </div>
                     
                     <div class="kyc-form-page">
-                        <div class="company-logo">
-                            <img src="bha.jpg" alt="BHA Logo">
-                        </div>
-                        <div class="form-header">
-                            <h1>COLOUR ACADEMY KYC FORM (CONTINUED)</h1>
+                        <div class="company-header">
+                            <div class="company-title">BEAUTIFUL HOMES ACADEMY KYC FORM (CONTINUED)</div>
+                            <div class="company-logo">
+                                <img src="bha.jpg" alt="BHA Logo">
+                            </div>
                         </div>
                         
                         <div class="section">
