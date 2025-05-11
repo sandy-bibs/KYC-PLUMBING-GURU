@@ -45,6 +45,16 @@
             line-height: 1.375rem;
             font-size: 0.875rem;
         }
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        }
+        .btn-primary {
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
         @media print {
             .form-container, .action-buttons {
                 display: none;
@@ -54,29 +64,30 @@
                 padding: 10mm;
             }
             body {
-                background-color: white;
+                background: white;
             }
         }
     </style>
 </head>
-<body class="bg-gray-100 font-sans">
-    <div class="form-container max-w-4xl mx-auto my-8 bg-white p-8 rounded-lg shadow-lg">
-        <div class="text-center mb-6">
-            <h1 class="text-3xl font-bold text-gray-800">KYC Form Generator</h1>
-            <p class="text-lg text-gray-600">Beautiful Homes Academy</p>
+<body class="gradient-bg font-sans">
+    <div class="form-container max-w-4xl mx-auto my-10 bg-white/95 backdrop-blur-lg p-10 rounded-2xl shadow-2xl">
+        <div class="text-center mb-8">
+            <img src="bha.jpg" alt="BHA Logo" class="max-h-20 mx-auto mb-4">
+            <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight">KYC Form Generator</h1>
+            <p class="text-lg text-gray-600 mt-2">Beautiful Homes Academy</p>
         </div>
         
-        <form id="uploadForm" class="mb-6">
-            <label for="excelFile" class="block text-sm font-medium text-gray-700 mb-2">Upload Excel File:</label>
+        <form id="uploadForm" class="mb-8">
+            <label for="excelFile" class="block text-sm font-semibold text-gray-800 mb-3">Upload Excel File:</label>
             <div class="flex items-center gap-4">
-                <input type="file" id="excelFile" name="excelFile" accept=".xlsx, .xls" required class="flex-1 border border-gray-300 rounded-md p-2 text-sm">
-                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">Generate KYC Forms</button>
+                <input type="file" id="excelFile" name="excelFile" accept=".xlsx, .xls" required class="flex-1 border border-gray-300 rounded-lg p-3 text-sm bg-gray-50 focus:ring-2 focus:ring-blue-500">
+                <button type="submit" class="btn-primary bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700">Generate KYC Forms</button>
             </div>
         </form>
 
         <div class="output" id="output"></div>
-        <div class="action-buttons flex justify-center mt-6 hidden" id="actionButtons">
-            <button class="download-btn bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition" id="downloadBtn">Download All KYC Forms</button>
+        <div class="action-buttons flex justify-center mt-8 hidden" id="actionButtons">
+            <button class="btn-primary download-btn bg-green-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-green-700" id="downloadBtn">Download All KYC Forms</button>
         </div>
     </div>
 
@@ -257,33 +268,33 @@
                 const isOther = proofType && !isAadhar && !isVoter && !isDriving;
                 
                 return `
-                    <div class="proof-section mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">${label}:</label>
-                        <div class="grid grid-cols-2 gap-2">
+                    <div class="proof-section mb-6">
+                        <label class="block text-sm font-semibold text-gray-800 mb-2">${label}:</label>
+                        <div class="grid grid-cols-2 gap-4">
                             <div class="flex items-center">
-                                <input type="checkbox" ${isAadhar ? 'checked' : ''} disabled class="mr-2">
+                                <input type="checkbox" ${isAadhar ? 'checked' : ''} disabled class="mr-2 h-4 w-4 text-blue-600">
                                 <span class="text-sm">Aadhar Card ${isAadhar ? '<span class="text-green-600 font-bold">✓</span>' : ''}</span>
                             </div>
                             <div class="flex items-center">
-                                <input type="checkbox" ${isVoter ? 'checked' : ''} disabled class="mr-2">
+                                <input type="checkbox" ${isVoter ? 'checked' : ''} disabled class="mr-2 h-4 w-4 text-blue-600">
                                 <span class="text-sm">Voter ID ${isVoter ? '<span class="text-green-600 font-bold">✓</span>' : ''}</span>
                             </div>
                             <div class="flex items-center">
-                                <input type="checkbox" ${isDriving ? 'checked' : ''} disabled class="mr-2">
+                                <input type="checkbox" ${isDriving ? 'checked' : ''} disabled class="mr-2 h-4 w-4 text-blue-600">
                                 <span class="text-sm">Driving License ${isDriving ? '<span class="text-green-600 font-bold">✓</span>' : ''}</span>
                             </div>
                             <div class="flex items-center">
-                                <input type="checkbox" ${isOther ? 'checked' : ''} disabled class="mr-2">
+                                <input type="checkbox" ${isOther ? 'checked' : ''} disabled class="mr-2 h-4 w-4 text-blue-600">
                                 <span class="text-sm">Other Govt ID ${isOther ? '<span class="text-green-600 font-bold">✓</span>' : ''}</span>
                             </div>
                         </div>
                         ${isOther ? `
-                        <div class="mt-2 flex items-center">
-                            <span class="text-sm mr-2">Specify:</span>
-                            <input type="text" value="${proofType}" readonly class="border border-gray-300 rounded-md p-1 text-sm w-full">
+                        <div class="mt-3 flex items-center">
+                            <span class="text-sm font-medium text-gray-800 mr-2">Specify:</span>
+                            <input type="text" value="${proofType}" readonly class="border border-gray-300 rounded-lg p-2 text-sm w-full bg-gray-50">
                         </div>
                         ` : ''}
-                        <div class="mt-2 text-sm font-medium">
+                        <div class="mt-3 text-sm font-semibold text-gray-800">
                             ID Number: ${proofNumber || 'Not provided'}
                         </div>
                     </div>
@@ -292,192 +303,192 @@
 
             return `
                 <div class="kyc-form">
-                    <div class="kyc-form-page bg-white p-6 border border-gray-200">
-                        <div class="company-header text-center mb-6">
-                            <h1 class="text-xl font-bold text-gray-800">BEAUTIFUL HOMES ACADEMY KYC FORM</h1>
-                            <div class="company-logo mt-2">
-                                <img src="bha.jpg" alt="BHA Logo" class="max-h-16 mx-auto">
+                    <div class="kyc-form-page bg-white p-8 border border-gray-200 rounded-lg">
+                        <div class="company-header text-center mb-8">
+                            <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight">BEAUTIFUL HOMES ACADEMY KYC FORM</h1>
+                            <div class="company-logo mt-4">
+                                <img src="bha.jpg" alt="BHA Logo" class="max-h-20 mx-auto">
                             </div>
                         </div>
                         
-                        <div class="compact-info grid grid-cols-2 gap-4 mb-6 text-sm">
-                            <div><span class="font-medium">Division:</span> ${data.Division || ''}</div>
-                            <div><span class="font-medium">Region:</span> ${data.Region || ''}</div>
-                            <div><span class="font-medium">Area:</span> ${data.Area || ''}</div>
-                            <div><span class="font-medium">Territory:</span> ${data.Territory || ''}</div>
-                            <div class="col-span-2"><span class="font-medium">Venue:</span> ${data.Venue || ''}</div>
+                        <div class="compact-info grid grid-cols-2 gap-6 mb-8 text-sm">
+                            <div><span class="font-semibold text-gray-800">Division:</span> ${data.Division || ''}</div>
+                            <div><span class="font-semibold text-gray-800">Region:</span> ${data.Region || ''}</div>
+                            <div><span class="font-semibold text-gray-800">Area:</span> ${data.Area || ''}</div>
+                            <div><span class="font-semibold text-gray-800">Territory:</span> ${data.Territory || ''}</div>
+                            <div class="col-span-2"><span class="font-semibold text-gray-800">Venue:</span> ${data.Venue || ''}</div>
                         </div>
                         
-                        <div class="section mb-6">
-                            <h2 class="text-lg font-semibold border-b border-gray-300 pb-1 mb-4">Personal Details</h2>
-                            <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div class="section mb-8">
+                            <h2 class="text-xl font-semibold text-gray-900 border-b-2 border-blue-600 pb-2 mb-6">Personal Details</h2>
+                            <div class="grid grid-cols-2 gap-6 mb-6">
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">First Name:</label>
+                                    <label class="block text-sm font-semibold text-gray-800 mb-2">First Name:</label>
                                     ${createDotOutput(data.firstName, 60)}
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Middle Name:</label>
+                                    <label class="block text-sm font-semibold text-gray-800 mb-2">Middle Name:</label>
                                     ${createDotOutput(data.middleName, 60)}
                                 </div>
                             </div>
                             
-                            <div class="flex gap-4 mb-4">
+                            <div class="flex gap-6 mb-6">
                                 <div class="flex-1">
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Surname:</label>
+                                    <label class="block text-sm font-semibold text-gray-800 mb-2">Surname:</label>
                                     ${createDotOutput(data.surname, 60)}
                                 </div>
-                                <div class="flex gap-2 items-end">
+                                <div class="flex gap-4 items-end">
                                     <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-1">Gender:</label>
-                                        <input type="text" class="border border-gray-300 rounded-md p-1 text-sm w-16" value="${data.gender || ''}" readonly>
+                                        <label class="block text-sm font-semibold text-gray-800 mb-2">Gender:</label>
+                                        <input type="text" class="border border-gray-300 rounded-lg p-2 text-sm w-20 bg-gray-50" value="${data.gender || ''}" readonly>
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-1">Age:</label>
+                                        <label class="block text-sm font-semibold text-gray-800 mb-2">Age:</label>
                                         ${createDotOutput(data.age, 15)}
                                     </div>
                                 </div>
                             </div>
                             
-                            <div class="mb-4">
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Address:</label>
-                                <div class="dot-container" style="min-height: 3.75rem;">
+                            <div class="mb-6">
+                                <label class="block text-sm font-semibold text-gray-800 mb-2">Address:</label>
+                                <div class="dot-container" style="min-height: 4rem;">
                                     <span class="dot-output text-sm">${data.address || ''}</span>
                                     <span class="dot-background text-sm">${'.'.repeat(240)}</span>
                                 </div>
                             </div>
                             
-                            <div class="flex gap-4 mb-4">
+                            <div class="flex gap-6 mb-6">
                                 <div class="flex-1">
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Mobile No / Date of Birth:</label>
-                                    <div class="flex gap-4">
+                                    <label class="block text-sm font-semibold text-gray-800 mb-2">Mobile No / Date of Birth:</label>
+                                    <div class="flex gap-6">
                                         <div class="flex-1">${createDigitBoxes(data.mobileNo, 10)}</div>
                                         <div class="flex-1">${createDobBoxes(data.dob)}</div>
                                     </div>
                                 </div>
                             </div>
                             
-                            <div class="grid grid-cols-2 gap-4 mb-4">
+                            <div class="grid grid-cols-2 gap-6 mb-6">
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Contractor BP No:</label>
+                                    <label class="block text-sm font-semibold text-gray-800 mb-2">Contractor BP No:</label>
                                     ${createDotOutput(data.contractorBPNo, 48)}
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Module Name:</label>
+                                    <label class="block text-sm font-semibold text-gray-800 mb-2">Module Name:</label>
                                     ${createDotOutput(data.trainingProgram, 24)}
                                 </div>
                             </div>
                             
-                            <div class="mb-4">
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Dealer Name:</label>
+                            <div class="mb-6">
+                                <label class="block text-sm font-semibold text-gray-800 mb-2">Dealer Name:</label>
                                 ${createDotOutput(data.dealerName, 60)}
                             </div>
                             
-                            <div class="text-right mb-4">
-                                <h3 class="text-sm font-medium">Plumbing Training Duration:</h3>
-                                <div class="flex justify-end gap-4 mt-2">
+                            <div class="text-right mb-6">
+                                <h3 class="text-sm font-semibold text-gray-800">Plumbing Training Duration:</h3>
+                                <div class="flex justify-end gap-6 mt-3">
                                     <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-1">From Date:</label>
-                                        <input type="text" class="border border-gray-300 rounded-md p-1 text-sm w-24" value="${formatDate(data.fromDate) || ''}" readonly>
+                                        <label class="block text-sm font-semibold text-gray-800 mb-2">From Date:</label>
+                                        <input type="text" class="border border-gray-300 rounded-lg p-2 text-sm w-28 bg-gray-50" value="${formatDate(data.fromDate) || ''}" readonly>
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-1">To Date:</label>
-                                        <input type="text" class="border border-gray-300 rounded-md p-1 text-sm w-24" value="${formatDate(data.toDate) || ''}" readonly>
+                                        <label class="block text-sm font-semibold text-gray-800 mb-2">To Date:</label>
+                                        <input type="text" class="border border-gray-300 rounded-lg p-2 text-sm w-28 bg-gray-50" value="${formatDate(data.toDate) || ''}" readonly>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="section mb-6">
-                            <h2 class="text-lg font-semibold border-b border-gray-300 pb-1 mb-4">ID and Address Proof</h2>
+                        <div class="section mb-8">
+                            <h2 class="text-xl font-semibold text-gray-900 border-b-2 border-blue-600 pb-2 mb-6">ID and Address Proof</h2>
                             ${createProofSection(data['ID Name'], data['ID no'], "ID Proof")}
                             ${createProofSection(data['Address Proof Name'], data['Address Proof No'], "Address Proof")}
                         </div>
                         
                         <div class="section">
-                            <h2 class="text-lg font-semibold border-b border-gray-300 pb-1 mb-4">Declaration</h2>
-                            <p class="text-sm text-gray-600 mb-4">I hereby declare that the information declared in this form is true and correct and that I am a resident Indian. I have attended the training mentioned in this form.</p>
+                            <h2 class="text-xl font-semibold text-gray-900 border-b-2 border-blue-600 pb-2 mb-6">Declaration</h2>
+                            <p class="text-sm text-gray-600 mb-6 leading-relaxed">I hereby declare that the information declared in this form is true and correct and that I am a resident Indian. I have attended the training mentioned in this form.</p>
                             
-                            <div class="flex justify-between">
+                            <div class="flex justify-between gap-6">
                                 <div class="w-5/12">
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Signature of the Participant:</label>
-                                    <div class="border-b border-gray-300 h-6"></div>
+                                    <label class="block text-sm font-semibold text-gray-800 mb-2">Signature of the Participant:</label>
+                                    <div class="border-b-2 border-gray-300 h-8"></div>
                                 </div>
-                                <div class="w-5/12 text-right">
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Name of the Trainer:</label>
-                                    <input type="text" class="border border-gray-300 rounded-md p-1 text-sm w-full" value="${data.trainerName || ''}" readonly>
+                                <div class="w-5/12">
+                                    <label class="block text-sm font-semibold text-gray-800 mb-2">Name of the Trainer:</label>
+                                    <input type="text" class="border border-gray-300 rounded-lg p-2 text-sm w-full bg-gray-50" value="${data.trainerName || ''}" readonly>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="kyc-form-page bg-white p-6 border border-gray-200">
-                        <div class="company-header text-center mb-6">
-                            <h1 class="text-xl font-bold text-gray-800">BEAUTIFUL HOMES ACADEMY KYC FORM (CONTINUED)</h1>
-                            <div class="company-logo mt-2">
-                                <img src="bha.jpg" alt="BHA Logo" class="max-h-16 mx-auto">
+                    <div class="kyc-form-page bg-white p-8 border border-gray-200 rounded-lg">
+                        <div class="company-header text-center mb-8">
+                            <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight">BEAUTIFUL HOMES ACADEMY KYC FORM (CONTINUED)</h1>
+                            <div class="company-logo mt-4">
+                                <img src="bha.jpg" alt="BHA Logo" class="max-h-20 mx-auto">
                             </div>
                         </div>
                         
                         <div class="section">
-                            <h2 class="text-lg font-semibold border-b border-gray-300 pb-1 mb-4">Post Training Feedback</h2>
+                            <h2 class="text-xl font-semibold text-gray-900 border-b-2 border-blue-600 pb-2 mb-6">Post Training Feedback</h2>
                             <table class="w-full border-collapse text-sm">
                                 <thead>
-                                    <tr class="bg-gray-100">
-                                        <th class="border border-gray-300 p-2 text-left">Questions</th>
-                                        <th class="border border-gray-300 p-2 text-left">Options</th>
-                                        <th class="border border-gray-300 p-2 text-left">Response</th>
+                                    <tr class="bg-blue-50">
+                                        <th class="border border-gray-300 p-3 text-left font-semibold text-gray-800">Questions</th>
+                                        <th class="border border-gray-300 p-3 text-left font-semibold text-gray-800">Options</th>
+                                        <th class="border border-gray-300 p-3 text-left font-semibold text-gray-800">Response</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="border border-gray-300 p-2">Type of Participant</td>
-                                        <td class="border border-gray-300 p-2">Helper / Plumber / Contractor / Others</td>
-                                        <td class="border border-gray-300 p-2"><input type="text" class="w-full p-1" value="${data.typeOfParticipant || ''}" readonly></td>
+                                        <td class="border border-gray-300 p-3">Type of Participant</td>
+                                        <td class="border border-gray-300 p-3">Helper / Plumber / Contractor / Others</td>
+                                        <td class="border border-gray-300 p-3"><input type="text" class="w-full p-2 bg-gray-50 rounded-lg" value="${data.typeOfParticipant || ''}" readonly></td>
                                     </tr>
                                     <tr>
-                                        <td class="border border-gray-300 p-2">Course Fees Paid Through</td>
-                                        <td class="border border-gray-300 p-2">Cash / Free Coupon / Discount</td>
-                                        <td class="border border-gray-300 p-2"><input type="text" class="w-full p-1" value="${data.courseFeesPaid || ''}" readonly></td>
+                                        <td class="border border-gray-300 p-3">Course Fees Paid Through</td>
+                                        <td class="border border-gray-300 p-3">Cash / Free Coupon / Discount</td>
+                                        <td class="border border-gray-300 p-3"><input type="text" class="w-full p-2 bg-gray-50 rounded-lg" value="${data.courseFeesPaid || ''}" readonly></td>
                                     </tr>
                                     <tr>
-                                        <td class="border border-gray-300 p-2">Anyone Sponsoring for the Course Fees</td>
-                                        <td class="border border-gray-300 p-2">Self / Contractor / Colour Academy / Others</td>
-                                        <td class="border border-gray-300 p-2"><input type="text" class="w-full p-1" value="${data.sponsor || ''}" readonly></td>
+                                        <td class="border border-gray-300 p-3">Anyone Sponsoring for the Course Fees</td>
+                                        <td class="border border-gray-300 p-3">Self / Contractor / Colour Academy / Others</td>
+                                        <td class="border border-gray-300 p-3"><input type="text" class="w-full p-2 bg-gray-50 rounded-lg" value="${data.sponsor || ''}" readonly></td>
                                     </tr>
                                     <tr>
-                                        <td class="border border-gray-300 p-2">How did you come to know about the CA?</td>
-                                        <td class="border border-gray-300 p-2">Internet / Contractor / Dealer / Plumber / NGO / Others</td>
-                                        <td class="border border-gray-300 p-2"><input type="text" class="w-full p-1" value="${data.sourceOfInfo || ''}" readonly></td>
+                                        <td class="border border-gray-300 p-3">How did you come to know about the CA?</td>
+                                        <td class="border border-gray-300 p-3">Internet / Contractor / Dealer / Plumber / NGO / Others</td>
+                                        <td class="border border-gray-300 p-3"><input type="text" class="w-full p-2 bg-gray-50 rounded-lg" value="${data.sourceOfInfo || ''}" readonly></td>
                                     </tr>
                                     <tr>
-                                        <td class="border border-gray-300 p-2">Nominated By</td>
-                                        <td class="border border-gray-300 p-2">Self / Contractor / Dealer / Others</td>
-                                        <td class="border border-gray-300 p-2"><input type="text" class="w-full p-1" value="${data.nominatedBy || ''}" readonly></td>
+                                        <td class="border border-gray-300 p-3">Nominated By</td>
+                                        <td class="border border-gray-300 p-3">Self / Contractor / Dealer / Others</td>
+                                        <td class="border border-gray-300 p-3"><input type="text" class="w-full p-2 bg-gray-50 rounded-lg" value="${data.nominatedBy || ''}" readonly></td>
                                     </tr>
                                     <tr>
-                                        <td class="border border-gray-300 p-2">Prior Experience</td>
-                                        <td class="border            <td class="border border-gray-300 p-2">Nil / 1-2 years / 2 or more years</td>
-                                        <td class="border border-gray-300 p-2"><input type="text" class="w-full p-1" value="${data.priorExperience || ''}" readonly></td>
+                                        <td class="border border-gray-300 p-3">Prior Experience</td>
+                                        <td class="border border-gray-300 p-3">Nil / 1-2 years / 2 or more years</td>
+                                        <td class="border border-gray-300 p-3"><input type="text" class="w-full p-2 bg-gray-50 rounded-lg" value="${data.priorExperience || ''}" readonly></td>
                                     </tr>
                                     <tr>
-                                        <td class="border border-gray-300 p-2">During the Training days, any loss in income/salary</td>
-                                        <td class="border border-gray-300 p-2">Yes / No</td>
-                                        <td class="border border-gray-300 p-2"><input type="text" class="w-full p-1" value="${data.lossInIncome || ''}" readonly></td>
+                                        <td class="border border-gray-300 p-3">During the Training days, any loss in income/salary</td>
+                                        <td class="border border-gray-300 p-3">Yes / No</td>
+                                        <td class="border border-gray-300 p-3"><input type="text" class="w-full p-2 bg-gray-50 rounded-lg" value="${data.lossInIncome || ''}" readonly></td>
                                     </tr>
                                     <tr>
-                                        <td class="border border-gray-300 p-2">Loss of Salary during Training Compensated by?</td>
-                                        <td class="border border-gray-300 p-2">By AP / Contractor / Not Compensated</td>
-                                        <td class="border border-gray-300 p-2"><input type="text" class="w-full p-1" value="${data.compensation || ''}" readonly></td>
+                                        <td class="border border-gray-300 p-3">Loss of Salary during Training Compensated by?</td>
+                                        <td class="border border-gray-300 p-3">By AP / Contractor / Not Compensated</td>
+                                        <td class="border border-gray-300 p-3"><input type="text" class="w-full p-2 bg-gray-50 rounded-lg" value="${data.compensation || ''}" readonly></td>
                                     </tr>
                                     <tr>
-                                        <td class="border border-gray-300 p-2">Current in-hand Income / Month</td>
-                                        <td class="border border-gray-300 p-2"></td>
-                                        <td class="border border-gray-300 p-2"><input type="text" class="w-full p-1" value="${data.currentIncome || ''}" readonly></td>
+                                        <td class="border border-gray-300 p-3">Current in-hand Income / Month</td>
+                                        <td class="border border-gray-300 p-3"></td>
+                                        <td class="border border-gray-300 p-3"><input type="text" class="w-full p-2 bg-gray-50 rounded-lg" value="${data.currentIncome || ''}" readonly></td>
                                     </tr>
                                     <tr>
-                                        <td class="border border-gray-300 p-2">In-hand income/month after 3 months of Training Attended</td>
-                                        <td class="border border-gray-300 p-2"></td>
-                                        <td class="border border-gray-300 p-2"><input type="text" class="w-full p-1" value="${data.incomeAfterTraining || ''}" readonly></td>
+                                        <td class="border border-gray-300 p-3">In-hand income/month after 3 months of Training Attended</td>
+                                        <td class="border border-gray-300 p-3"></td>
+                                        <td class="border border-gray-300 p-3"><input type="text" class="w-full p-2 bg-gray-50 rounded-lg" value="${data.incomeAfterTraining || ''}" readonly></td>
                                     </tr>
                                 </tbody>
                             </table>
