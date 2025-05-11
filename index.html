@@ -4,142 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KYC Form Generator - Beautiful Homes Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
-            font-family: 'Times New Roman', Times, serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        .form-container {
-            max-width: 800px;
-            margin: 20px auto;
-            background: #fff;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 3px;
-            font-weight: bold;
-        }
-        input[type="file"] {
-            margin-bottom: 15px;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-right: 8px;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .output {
-            margin-top: 15px;
-        }
-        .logo {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-        .kyc-form {
-            margin: 0 auto;
+        @page {
+            size: A4;
+            margin: 10mm;
         }
         .kyc-form-page {
-            background: #fff;
-            padding: 15px;
-            border: 1px solid #000;
             width: 210mm;
             min-height: 297mm;
             box-sizing: border-box;
             page-break-after: always;
-            margin-bottom: 15px;
-        }
-        .company-header {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-        .company-logo {
-            margin-bottom: 5px;
-        }
-        .company-logo img {
-            max-height: 100px;
-            width: auto;
-        }
-        .company-title {
-            font-size: 20px;
-            font-weight: bold;
-            margin-top: 5px;
-        }
-        .kyc-form-page .section {
-            margin-bottom: 12px;
-        }
-        .kyc-form-page .section h2 {
-            font-size: 16px;
-            border-bottom: 1px solid #000;
-            padding-bottom: 3px;
-            margin-bottom: 8px;
-        }
-        .kyc-form-page input[type="text"],
-        .kyc-form-page textarea {
-            padding: 4px;
-            margin-bottom: 8px;
-            border: 1px solid #000;
-            box-sizing: border-box;
-            width: 100%;
-            font-size: 14px;
-        }
-        .kyc-form-page table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 12px;
-            font-size: 14px;
-        }
-        .kyc-form-page th, .kyc-form-page td {
-            border: 1px solid #000;
-            padding: 6px;
-            text-align: left;
-        }
-        .compact-info {
-            margin-bottom: 12px;
-        }
-        .compact-info div {
-            margin-bottom: 3px;
-            font-size: 14px;
-        }
-        .form-header {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-        .digit-boxes {
-            display: flex;
-            gap: 2px;
-        }
-        .digit-box {
-            width: 18px;
-            height: 22px;
-            border: 1px solid #000;
-            text-align: center;
-            line-height: 22px;
-            font-size: 14px;
+            margin-bottom: 1rem;
         }
         .dot-container {
             position: relative;
-            margin-bottom: 8px;
+            margin-bottom: 0.5rem;
         }
         .dot-output {
-            font-size: 14px;
-            letter-spacing: 0px; /* ডটের মধ্যে দূরত্ব কমানো হয়েছে */
             position: absolute;
             top: 0;
             left: 0;
@@ -147,182 +29,29 @@
             z-index: 1;
         }
         .dot-background {
-            font-size: 14px;
-            letter-spacing: 0px; /* ডটের মধ্যে দূরত্ব কমানো হয়েছে */
             color: #000;
             position: relative;
             z-index: 0;
         }
-        .personal-details-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-        .personal-detail-item {
+        .digit-boxes {
             display: flex;
-            flex-direction: column;
+            gap: 0.125rem;
         }
-        .name-line {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 8px;
-            align-items: flex-end;
-        }
-        .surname-gender-age-line {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 8px;
-            align-items: flex-end;
-        }
-        .surname-box {
-            flex: 2;
-        }
-        .gender-age-group {
-            display: flex;
-            gap: 5px;
-            align-items: center;
-        }
-        .gender-box {
-            width: 50px;
-            font-size: 14px;
-        }
-        .address-box {
-            width: 100%;
-            box-sizing: border-box;
-            font-size: 14px;
-            min-height: 60px;
-        }
-        .mobile-dob-container {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 8px;
-        }
-        .mobile-dob-item {
-            flex: 1;
-        }
-        .mobile-dob-label {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 3px;
-        }
-        .contractor-line {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 8px;
-        }
-        .contractor-box, .training-box {
-            flex: 1;
-        }
-        .dealer-box {
-            margin-bottom: 8px;
-        }
-        .training-duration-header {
-            text-align: right;
-            font-weight: bold;
-            font-size: 14px;
-            margin-bottom: 5px;
-            margin-top: 15px;
-        }
-        .date-range-container {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            margin-top: 5px;
-        }
-        .from-date-box, .to-date-box {
-            width: 100px;
-        }
-        .date-label {
-            display: block;
-            margin-bottom: 3px;
-            font-weight: bold;
-            font-size: 14px;
-        }
-        .declaration-section {
-            margin-top: 20px;
-        }
-        .declaration-section p {
-            font-size: 14px;
-            line-height: 1.4;
-            margin-bottom: 15px;
-        }
-        .signature-line {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-        .signature-box {
-            width: 45%;
-            font-size: 14px;
-        }
-        .action-buttons {
-            display: flex;
-            justify-content: center;
-            margin-top: 15px;
-        }
-        .download-btn {
-            background-color: #2196F3;
-            font-size: 14px;
-        }
-        .download-btn:hover {
-            background-color: #0b7dda;
-        }
-        .proof-section {
-            margin-bottom: 15px;
-        }
-        .proof-options {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-top: 5px;
-        }
-        .proof-option {
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-        }
-        .proof-option input[type="checkbox"] {
-            margin-right: 6px;
-            transform: scale(1.1);
-        }
-        .other-proof {
-            margin-top: 5px;
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-        }
-        .other-proof input[type="text"] {
-            flex: 1;
-            margin-left: 6px;
-            font-size: 14px;
-        }
-        .tick-mark {
-            color: green;
-            font-weight: bold;
-            margin-left: 3px;
-        }
-        .proof-number {
-            margin-top: 5px;
-            font-weight: bold;
-            font-size: 14px;
-        }
-        .name-container {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 8px;
-        }
-        .name-box {
-            flex: 1;
+        .digit-box {
+            width: 1.125rem;
+            height: 1.375rem;
+            border: 1px solid #000;
+            text-align: center;
+            line-height: 1.375rem;
+            font-size: 0.875rem;
         }
         @media print {
+            .form-container, .action-buttons {
+                display: none;
+            }
             .kyc-form-page {
                 margin: 0;
                 padding: 10mm;
-                page-break-after: always;
-            }
-            .form-container, .action-buttons {
-                display: none;
             }
             body {
                 background-color: white;
@@ -330,21 +59,24 @@
         }
     </style>
 </head>
-<body>
-    <div class="form-container">
-        <div class="logo">
-            <h1>KYC Form Generator - Beautiful Homes Academy</h1>
+<body class="bg-gray-100 font-sans">
+    <div class="form-container max-w-4xl mx-auto my-8 bg-white p-8 rounded-lg shadow-lg">
+        <div class="text-center mb-6">
+            <h1 class="text-3xl font-bold text-gray-800">KYC Form Generator</h1>
+            <p class="text-lg text-gray-600">Beautiful Homes Academy</p>
         </div>
         
-        <form id="uploadForm">
-            <label for="excelFile">Upload Excel File:</label>
-            <input type="file" id="excelFile" name="excelFile" accept=".xlsx, .xls" required>
-            <button type="submit">Generate KYC Forms</button>
+        <form id="uploadForm" class="mb-6">
+            <label for="excelFile" class="block text-sm font-medium text-gray-700 mb-2">Upload Excel File:</label>
+            <div class="flex items-center gap-4">
+                <input type="file" id="excelFile" name="excelFile" accept=".xlsx, .xls" required class="flex-1 border border-gray-300 rounded-md p-2 text-sm">
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">Generate KYC Forms</button>
+            </div>
         </form>
 
         <div class="output" id="output"></div>
-        <div class="action-buttons" id="actionButtons" style="display: none;">
-            <button class="download-btn" id="downloadBtn">Download All KYC Forms</button>
+        <div class="action-buttons flex justify-center mt-6 hidden" id="actionButtons">
+            <button class="download-btn bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition" id="downloadBtn">Download All KYC Forms</button>
         </div>
     </div>
 
@@ -511,8 +243,8 @@
             const dots = '.'.repeat(dotCount);
             return `
                 <div class="dot-container">
-                    <span class="dot-output">${value || ''}</span>
-                    <span class="dot-background">${dots}</span>
+                    <span class="dot-output text-sm">${value || ''}</span>
+                    <span class="dot-background text-sm">${dots}</span>
                 </div>
             `;
         }
@@ -525,33 +257,33 @@
                 const isOther = proofType && !isAadhar && !isVoter && !isDriving;
                 
                 return `
-                    <div class="proof-section">
-                        <label>${label}:</label>
-                        <div class="proof-options">
-                            <div class="proof-option">
-                                <input type="checkbox" ${isAadhar ? 'checked' : ''} disabled>
-                                <span>Aadhar Card ${isAadhar ? '<span class="tick-mark">✓</span>' : ''}</span>
+                    <div class="proof-section mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">${label}:</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="flex items-center">
+                                <input type="checkbox" ${isAadhar ? 'checked' : ''} disabled class="mr-2">
+                                <span class="text-sm">Aadhar Card ${isAadhar ? '<span class="text-green-600 font-bold">✓</span>' : ''}</span>
                             </div>
-                            <div class="proof-option">
-                                <input type="checkbox" ${isVoter ? 'checked' : ''} disabled>
-                                <span>Voter ID ${isVoter ? '<span class="tick-mark">✓</span>' : ''}</span>
+                            <div class="flex items-center">
+                                <input type="checkbox" ${isVoter ? 'checked' : ''} disabled class="mr-2">
+                                <span class="text-sm">Voter ID ${isVoter ? '<span class="text-green-600 font-bold">✓</span>' : ''}</span>
                             </div>
-                            <div class="proof-option">
-                                <input type="checkbox" ${isDriving ? 'checked' : ''} disabled>
-                                <span>Driving License ${isDriving ? '<span class="tick-mark">✓</span>' : ''}</span>
+                            <div class="flex items-center">
+                                <input type="checkbox" ${isDriving ? 'checked' : ''} disabled class="mr-2">
+                                <span class="text-sm">Driving License ${isDriving ? '<span class="text-green-600 font-bold">✓</span>' : ''}</span>
                             </div>
-                            <div class="proof-option">
-                                <input type="checkbox" ${isOther ? 'checked' : ''} disabled>
-                                <span>Other Govt ID ${isOther ? '<span class="tick-mark">✓</span>' : ''}</span>
+                            <div class="flex items-center">
+                                <input type="checkbox" ${isOther ? 'checked' : ''} disabled class="mr-2">
+                                <span class="text-sm">Other Govt ID ${isOther ? '<span class="text-green-600 font-bold">✓</span>' : ''}</span>
                             </div>
                         </div>
                         ${isOther ? `
-                        <div class="other-proof">
-                            <span>Specify:</span>
-                            <input type="text" value="${proofType}" readonly>
+                        <div class="mt-2 flex items-center">
+                            <span class="text-sm mr-2">Specify:</span>
+                            <input type="text" value="${proofType}" readonly class="border border-gray-300 rounded-md p-1 text-sm w-full">
                         </div>
                         ` : ''}
-                        <div class="proof-number">
+                        <div class="mt-2 text-sm font-medium">
                             ID Number: ${proofNumber || 'Not provided'}
                         </div>
                     </div>
@@ -560,190 +292,194 @@
 
             return `
                 <div class="kyc-form">
-                    <div class="kyc-form-page">
-                        <div class="company-header">
-                            <div class="company-title">BEAUTIFUL HOMES ACADEMY KYC FORM</div>
-                            <div class="company-logo">
-                                <img src="bha.jpg" alt="BHA Logo">
+                    <div class="kyc-form-page bg-white p-6 border border-gray-200">
+                        <div class="company-header text-center mb-6">
+                            <h1 class="text-xl font-bold text-gray-800">BEAUTIFUL HOMES ACADEMY KYC FORM</h1>
+                            <div class="company-logo mt-2">
+                                <img src="bha.jpg" alt="BHA Logo" class="max-h-16 mx-auto">
                             </div>
                         </div>
                         
-                        <div class="compact-info">
-                            <div><label>Division:</label> ${data.Division || ''}</div>
-                            <div><label>Region:</label> ${data.Region || ''}</div>
-                            <div><label>Area:</label> ${data.Area || ''}</div>
-                            <div><label>Territory:</label> ${data.Territory || ''}</div>
-                            <div><label>Venue:</label> ${data.Venue || ''}</div>
+                        <div class="compact-info grid grid-cols-2 gap-4 mb-6 text-sm">
+                            <div><span class="font-medium">Division:</span> ${data.Division || ''}</div>
+                            <div><span class="font-medium">Region:</span> ${data.Region || ''}</div>
+                            <div><span class="font-medium">Area:</span> ${data.Area || ''}</div>
+                            <div><span class="font-medium">Territory:</span> ${data.Territory || ''}</div>
+                            <div class="col-span-2"><span class="font-medium">Venue:</span> ${data.Venue || ''}</div>
                         </div>
                         
-                        <div class="section">
-                            <h2>Personal Details</h2>
-                            <div class="name-container">
-                                <div class="name-box">
-                                    <label>First Name:</label>
+                        <div class="section mb-6">
+                            <h2 class="text-lg font-semibold border-b border-gray-300 pb-1 mb-4">Personal Details</h2>
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">First Name:</label>
                                     ${createDotOutput(data.firstName, 60)}
                                 </div>
-                                <div class="name-box">
-                                    <label>Middle Name:</label>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Middle Name:</label>
                                     ${createDotOutput(data.middleName, 60)}
                                 </div>
                             </div>
                             
-                            <div class="surname-gender-age-line">
-                                <div class="surname-box">
-                                    <label>Surname:</label>
+                            <div class="flex gap-4 mb-4">
+                                <div class="flex-1">
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Surname:</label>
                                     ${createDotOutput(data.surname, 60)}
                                 </div>
-                                <div class="gender-age-group">
-                                    <span class="gender-age-label">Gender:</span>
-                                    <input type="text" class="gender-box" value="${data.gender || ''}" readonly>
-                                    <span class="gender-age-label">Age:</span>
-                                    ${createDotOutput(data.age, 15)}
-                                </div>
-                            </div>
-                            
-                            <label>Address:</label>
-                            <div class="dot-container" style="min-height: 60px;">
-                                <span class="dot-output">${data.address || ''}</span>
-                                <span class="dot-background">${'.'.repeat(240)}</span>
-                            </div>
-                            
-                            <div class="mobile-dob-container">
-                                <div class="mobile-dob-item">
-                                    <div class="mobile-dob-label">
-                                        <span>Mobile No:</span>
-                                        <span>Date of Birth:</span>
+                                <div class="flex gap-2 items-end">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Gender:</label>
+                                        <input type="text" class="border border-gray-300 rounded-md p-1 text-sm w-16" value="${data.gender || ''}" readonly>
                                     </div>
-                                    <div style="display: flex; gap: 10px;">
-                                        <div style="flex: 1;">
-                                            ${createDigitBoxes(data.mobileNo, 10)}
-                                        </div>
-                                        <div style="flex: 1;">
-                                            ${createDobBoxes(data.dob)}
-                                        </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Age:</label>
+                                        ${createDotOutput(data.age, 15)}
                                     </div>
                                 </div>
                             </div>
                             
-                            <div class="contractor-line">
-                                <div class="contractor-box">
-                                    <label>Contractor BP No:</label>
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Address:</label>
+                                <div class="dot-container" style="min-height: 3.75rem;">
+                                    <span class="dot-output text-sm">${data.address || ''}</span>
+                                    <span class="dot-background text-sm">${'.'.repeat(240)}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex gap-4 mb-4">
+                                <div class="flex-1">
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Mobile No / Date of Birth:</label>
+                                    <div class="flex gap-4">
+                                        <div class="flex-1">${createDigitBoxes(data.mobileNo, 10)}</div>
+                                        <div class="flex-1">${createDobBoxes(data.dob)}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Contractor BP No:</label>
                                     ${createDotOutput(data.contractorBPNo, 48)}
                                 </div>
-                                <div class="training-box">
-                                    <label>Module Name:</label>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Module Name:</label>
                                     ${createDotOutput(data.trainingProgram, 24)}
                                 </div>
                             </div>
                             
-                            <div class="dealer-box">
-                                <label>Dealer Name:</label>
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Dealer Name:</label>
                                 ${createDotOutput(data.dealerName, 60)}
                             </div>
                             
-                            <div class="training-duration-header">
-                                Plumbing Training Duration:
-                            </div>
-                            
-                            <div class="date-range-container">
-                                <div class="from-date-box">
-                                    <span class="date-label">From Date:</span>
-                                    <input type="text" value="${formatDate(data.fromDate) || ''}" readonly>
-                                </div>
-                                <div class="to-date-box">
-                                    <span class="date-label">To Date:</span>
-                                    <input type="text" value="${formatDate(data.toDate) || ''}" readonly>
+                            <div class="text-right mb-4">
+                                <h3 class="text-sm font-medium">Plumbing Training Duration:</h3>
+                                <div class="flex justify-end gap-4 mt-2">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">From Date:</label>
+                                        <input type="text" class="border border-gray-300 rounded-md p-1 text-sm w-24" value="${formatDate(data.fromDate) || ''}" readonly>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">To Date:</label>
+                                        <input type="text" class="border border-gray-300 rounded-md p-1 text-sm w-24" value="${formatDate(data.toDate) || ''}" readonly>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="section">
-                            <h2>ID and Address Proof</h2>
+                        <div class="section mb-6">
+                            <h2 class="text-lg font-semibold border-b border-gray-300 pb-1 mb-4">ID and Address Proof</h2>
                             ${createProofSection(data['ID Name'], data['ID no'], "ID Proof")}
                             ${createProofSection(data['Address Proof Name'], data['Address Proof No'], "Address Proof")}
                         </div>
                         
-                        <div class="section declaration-section">
-                            <h2>Declaration</h2>
-                            <p>I hereby declare that the information declared in this form is true and correct and that I am a resident Indian. I have attended the training mentioned in this form.</p>
+                        <div class="section">
+                            <h2 class="text-lg font-semibold border-b border-gray-300 pb-1 mb-4">Declaration</h2>
+                            <p class="text-sm text-gray-600 mb-4">I hereby declare that the information declared in this form is true and correct and that I am a resident Indian. I have attended the training mentioned in this form.</p>
                             
-                            <div class="signature-line">
-                                <div class="signature-box">
-                                    <label>Signature of the Participant: ________________</label>
+                            <div class="flex justify-between">
+                                <div class="w-5/12">
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Signature of the Participant:</label>
+                                    <div class="border-b border-gray-300 h-6"></div>
                                 </div>
-                                <div class="signature-box" style="text-align: right;">
-                                    <label>Name of the Trainer: ${data.trainerName || ''}</label>
+                                <div class="w-5/12 text-right">
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Name of the Trainer:</label>
+                                    <input type="text" class="border border-gray-300 rounded-md p-1 text-sm w-full" value="${data.trainerName || ''}" readonly>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="kyc-form-page">
-                        <div class="company-header">
-                            <div class="company-title">BEAUTIFUL HOMES ACADEMY KYC FORM (CONTINUED)</div>
-                            <div class="company-logo">
-                                <img src="bha.jpg" alt="BHA Logo">
+                    <div class="kyc-form-page bg-white p-6 border border-gray-200">
+                        <div class="company-header text-center mb-6">
+                            <h1 class="text-xl font-bold text-gray-800">BEAUTIFUL HOMES ACADEMY KYC FORM (CONTINUED)</h1>
+                            <div class="company-logo mt-2">
+                                <img src="bha.jpg" alt="BHA Logo" class="max-h-16 mx-auto">
                             </div>
                         </div>
                         
                         <div class="section">
-                            <h2>Post Training Feedback</h2>
-                            <table>
-                                <tr>
-                                    <th>Questions</th>
-                                    <th>Options</th>
-                                    <th>Response</th>
-                                </tr>
-                                <tr>
-                                    <td>Type of Participant</td>
-                                    <td>Helper / Plumber / Contractor / Others</td>
-                                    <td><input type="text" value="${data.typeOfParticipant || ''}" readonly></td>
-                                </tr>
-                                <tr>
-                                    <td>Course Fees Paid Through</td>
-                                    <td>Cash / Free Coupon / Discount</td>
-                                    <td><input type="text" value="${data.courseFeesPaid || ''}" readonly></td>
-                                </tr>
-                                <tr>
-                                    <td>Anyone Sponsoring for the Course Fees</td>
-                                    <td>Self / Contractor / Colour Academy / Others</td>
-                                    <td><input type="text" value="${data.sponsor || ''}" readonly></td>
-                                </tr>
-                                <tr>
-                                    <td>How did you come to know about the CA?</td>
-                                    <td>Internet / Contractor / Dealer / Plumber / NGO / Others</td>
-                                    <td><input type="text" value="${data.sourceOfInfo || ''}" readonly></td>
-                                </tr>
-                                <tr>
-                                    <td>Nominated By</td>
-                                    <td>Self / Contractor / Dealer / Others</td>
-                                    <td><input type="text" value="${data.nominatedBy || ''}" readonly></td>
-                                </tr>
-                                <tr>
-                                    <td>Prior Experience</td>
-                                    <td>Nil / 1-2 years / 2 or more years</td>
-                                    <td><input type="text" value="${data.priorExperience || ''}" readonly></td>
-                                </tr>
-                                <tr>
-                                    <td>During the Training days, any loss in income/salary</td>
-                                    <td>Yes / No</td>
-                                    <td><input type="text" value="${data.lossInIncome || ''}" readonly></td>
-                                </tr>
-                                <tr>
-                                    <td>Loss of Salary during Training Compensated by?</td>
-                                    <td>By AP / Contractor / Not Compensated</td>
-                                    <td><input type="text" value="${data.compensation || ''}" readonly></td>
-                                </tr>
-                                <tr>
-                                    <td>Current in-hand Income / Month</td>
-                                    <td></td>
-                                    <td><input type="text" value="${data.currentIncome || ''}" readonly></td>
-                                </tr>
-                                <tr>
-                                    <td>In-hand income/month after 3 months of Training Attended</td>
-                                    <td></td>
-                                    <td><input type="text" value="${data.incomeAfterTraining || ''}" readonly></td>
-                                </tr>
+                            <h2 class="text-lg font-semibold border-b border-gray-300 pb-1 mb-4">Post Training Feedback</h2>
+                            <table class="w-full border-collapse text-sm">
+                                <thead>
+                                    <tr class="bg-gray-100">
+                                        <th class="border border-gray-300 p-2 text-left">Questions</th>
+                                        <th class="border border-gray-300 p-2 text-left">Options</th>
+                                        <th class="border border-gray-300 p-2 text-left">Response</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="border border-gray-300 p-2">Type of Participant</td>
+                                        <td class="border border-gray-300 p-2">Helper / Plumber / Contractor / Others</td>
+                                        <td class="border border-gray-300 p-2"><input type="text" class="w-full p-1" value="${data.typeOfParticipant || ''}" readonly></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 p-2">Course Fees Paid Through</td>
+                                        <td class="border border-gray-300 p-2">Cash / Free Coupon / Discount</td>
+                                        <td class="border border-gray-300 p-2"><input type="text" class="w-full p-1" value="${data.courseFeesPaid || ''}" readonly></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 p-2">Anyone Sponsoring for the Course Fees</td>
+                                        <td class="border border-gray-300 p-2">Self / Contractor / Colour Academy / Others</td>
+                                        <td class="border border-gray-300 p-2"><input type="text" class="w-full p-1" value="${data.sponsor || ''}" readonly></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 p-2">How did you come to know about the CA?</td>
+                                        <td class="border border-gray-300 p-2">Internet / Contractor / Dealer / Plumber / NGO / Others</td>
+                                        <td class="border border-gray-300 p-2"><input type="text" class="w-full p-1" value="${data.sourceOfInfo || ''}" readonly></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 p-2">Nominated By</td>
+                                        <td class="border border-gray-300 p-2">Self / Contractor / Dealer / Others</td>
+                                        <td class="border border-gray-300 p-2"><input type="text" class="w-full p-1" value="${data.nominatedBy || ''}" readonly></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 p-2">Prior Experience</td>
+                                        <td class="border            <td class="border border-gray-300 p-2">Nil / 1-2 years / 2 or more years</td>
+                                        <td class="border border-gray-300 p-2"><input type="text" class="w-full p-1" value="${data.priorExperience || ''}" readonly></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 p-2">During the Training days, any loss in income/salary</td>
+                                        <td class="border border-gray-300 p-2">Yes / No</td>
+                                        <td class="border border-gray-300 p-2"><input type="text" class="w-full p-1" value="${data.lossInIncome || ''}" readonly></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 p-2">Loss of Salary during Training Compensated by?</td>
+                                        <td class="border border-gray-300 p-2">By AP / Contractor / Not Compensated</td>
+                                        <td class="border border-gray-300 p-2"><input type="text" class="w-full p-1" value="${data.compensation || ''}" readonly></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 p-2">Current in-hand Income / Month</td>
+                                        <td class="border border-gray-300 p-2"></td>
+                                        <td class="border border-gray-300 p-2"><input type="text" class="w-full p-1" value="${data.currentIncome || ''}" readonly></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 p-2">In-hand income/month after 3 months of Training Attended</td>
+                                        <td class="border border-gray-300 p-2"></td>
+                                        <td class="border border-gray-300 p-2"><input type="text" class="w-full p-1" value="${data.incomeAfterTraining || ''}" readonly></td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>
