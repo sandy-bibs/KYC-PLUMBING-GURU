@@ -139,7 +139,7 @@
         }
         .dot-output {
             font-size: 14px;
-            letter-spacing: 0px; /* ডটের মধ্যে দূরত্ব কমানো হয়েছে */
+            letter-spacing: 0px;
             position: absolute;
             top: 0;
             left: 0;
@@ -148,10 +148,22 @@
         }
         .dot-background {
             font-size: 14px;
-            letter-spacing: 0px; /* ডটের মধ্যে দূরত্ব কমানো হয়েছে */
+            letter-spacing: 0px;
             color: #000;
             position: relative;
             z-index: 0;
+        }
+        .dot-container.address-dots {
+            max-width: 100%;
+            overflow: hidden;
+            word-wrap: break-word;
+        }
+        .dot-background.address-dots {
+            letter-spacing: -0.5px;
+            font-size: 14px;
+            display: inline-block;
+            white-space: nowrap;
+            max-width: 100%;
         }
         .personal-details-grid {
             display: grid;
@@ -200,11 +212,12 @@
         }
         .mobile-dob-item {
             flex: 1;
+            display: flex;
+            flex-direction: column;
         }
         .mobile-dob-label {
-            display: flex;
-            justify-content: space-between;
             margin-bottom: 3px;
+            font-weight: bold;
         }
         .contractor-line {
             display: flex;
@@ -220,7 +233,7 @@
         .training-duration-header {
             text-align: right;
             font-weight: bold;
-            font-size: 14px;
+            font-size:  mää: 14px;
             margin-bottom: 5px;
             margin-top: 15px;
         }
@@ -603,25 +616,19 @@
                             </div>
                             
                             <label>Address:</label>
-                            <div class="dot-container" style="min-height: 60px;">
+                            <div class="dot-container address-dots" style="min-height: 60px;">
                                 <span class="dot-output">${data.address || ''}</span>
-                                <span class="dot-background">${'.'.repeat(240)}</span>
+                                <span class="dot-background address-dots">${'.'.repeat(180)}</span>
                             </div>
                             
                             <div class="mobile-dob-container">
                                 <div class="mobile-dob-item">
-                                    <div class="mobile-dob-label">
-                                        <span>Mobile No:</span>
-                                        <span>Date of Birth:</span>
-                                    </div>
-                                    <div style="display: flex; gap: 10px;">
-                                        <div style="flex: 1;">
-                                            ${createDigitBoxes(data.mobileNo, 10)}
-                                        </div>
-                                        <div style="flex: 1;">
-                                            ${createDobBoxes(data.dob)}
-                                        </div>
-                                    </div>
+                                    <label class="mobile-dob-label">Mobile No:</label>
+                                    ${createDigitBoxes(data.mobileNo, 10)}
+                                </div>
+                                <div class="mobile-dob-item">
+                                    <label class="mobile-dob-label">Date of Birth:</label>
+                                    ${createDobBoxes(data.dob)}
                                 </div>
                             </div>
                             
